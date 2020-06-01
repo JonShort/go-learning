@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-var income int
+var income float64
 
 func init() {
 	const (
@@ -13,15 +13,15 @@ func init() {
 		usage        = "Income pre-taxes"
 	)
 
-	flag.IntVar(&income, "income", defaultValue, usage)
-	flag.IntVar(&income, "i", defaultValue, usage+" (shorthand)")
+	flag.Float64Var(&income, "income", defaultValue, usage)
+	flag.Float64Var(&income, "i", defaultValue, usage+" (shorthand)")
 }
 
 type band struct {
-	amount  int
-	maxTax  int
-	rate    int
-	whenMax int
+	amount  float64
+	maxTax  float64
+	rate    float64
+	whenMax float64
 }
 
 func main() {
@@ -34,8 +34,8 @@ func main() {
 	bands[2] = band{amount: 150000, rate: 40, whenMax: 60000, maxTax: 40000}
 	bands[3] = band{amount: 0x7FF0000000000000, rate: 45}
 
-	postTax := 0
-	taxPaid := 0
+	var postTax float64
+	var taxPaid float64
 	for i := 0; i < len(bands); i++ {
 		band := bands[i]
 
@@ -68,7 +68,7 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Income: %d\n", income)
-	fmt.Printf("Tax: %d\n", taxPaid)
-	fmt.Printf("Income post-tax: %d\n", postTax)
+	fmt.Printf("Income: £%0.2f\n", income)
+	fmt.Printf("Tax: £%0.2f\n", taxPaid)
+	fmt.Printf("Income post-tax: £%0.2f\n", postTax)
 }
